@@ -17,8 +17,8 @@
     <artifactId>ai-agents</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>demo</name>
-    <description>Spring Boot Weather and Ollama AI Demo</description>
+    <name>ai-course</name>
+    <description>Ai Chatbot</description>
 
     <properties>
         <java.version>25</java.version>
@@ -26,11 +26,17 @@
     </properties>
 
     <dependencies>
-
-        <!-- Spring MVC / REST API -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <!-- Spring AI + Ollama -->
@@ -57,26 +63,13 @@
 
         <!-- Netty DNS support for Apple Silicon Mac -->
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-resolver-dns-native-macos</artifactId>
-            <classifier>osx-aarch_64</classifier>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Spring Boot tests -->
-        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
-
     <dependencyManagement>
         <dependencies>
-
-            <!-- Spring AI BOM -->
             <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
@@ -84,18 +77,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 

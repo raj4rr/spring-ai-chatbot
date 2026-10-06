@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/apis/")
+@RequestMapping("/")
 public class PromtsTemplatesController {
     ChatClient chatClient;
     private final Resource userMsgResource;
@@ -33,7 +33,7 @@ public class PromtsTemplatesController {
         this.userMsgResource = userMsgResource;
         this.systemMsgResource = systemMsgResource;
     }
-
+/*
     @GetMapping("/listOfCities")
     List<String> getCityName(String country) {
         ListOutputConverter converter = new ListOutputConverter();
@@ -43,13 +43,13 @@ public class PromtsTemplatesController {
 
         return converter.convert(chatClient.prompt().system(systemMsgResource).messages(message).call().content());
     }
-
-    @GetMapping("/chat")
-    ResponseEntity<Output> chat(String input,
+*/
+    @PostMapping("/chat")
+    ResponseEntity<Output> chat(@RequestBody  Input input,
                                 @CookieValue(name = "X-CONV-ID", required = false) String convId) {
         String conversationId = convId == null ? UUID.randomUUID().toString() : convId;
         var response = this.chatClient.prompt()
-                .user(input)
+                .user(input.prompt)
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
                 .call().content();
         ResponseCookie cookie = ResponseCookie.from("X-CONV-ID", conversationId)
@@ -61,7 +61,7 @@ public class PromtsTemplatesController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(output);
     }
 
-    // record Input(String prompt) {}
+     record Input(String prompt) {}
     record Output(String content) {
     }
 }
